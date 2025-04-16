@@ -1,29 +1,108 @@
-import React, { createContext, useEffect, useState } from "react";
-import { getLocalStorage, setLocalStorage } from "../utils/LocalStorage";
+import React, { createContext, useEffect, useState } from 'react';
+import { getLocalStorage, setLocalStorage } from '../utils/LocalStorage';
 
-export const AuthContext = createContext({ dataEmployees: [], dataAdmin: {} });
+export const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
-    const [userData, setUserData] = useState({ dataEmployees: [], dataAdmin: {} });
+export const AuthProvider = ({ children }) => {
+    const [employees, setEmployees] = useState([]);
 
     useEffect(() => {
-
-        const storedData = getLocalStorage();
-        console.log("Fetched Local Storage Data:", storedData);
-
-        if (storedData) {
-            const { dataEmployees = [], dataAdmin = {} } = storedData;
-            setUserData({ dataEmployees, dataAdmin });
+        try {
+            const { dataEmployees } = getLocalStorage();
+            const filteredEmployees = (dataEmployees || []).filter(emp => emp.role !== 'admin');
+            setEmployees(filteredEmployees);
+        } catch (error) {
+            console.error('Error accessing localStorage:', error);
         }
-
-
     }, []);
 
+    useEffect(() => {
+        setLocalStorage(employees);
+    }, [employees]);
+
+    const assignTask = (assignedName, newTask) => {
+        let found = false;
+
+        const updatedEmployees = employees.map(employee => {
+            if (employee.name.toLowerCase() === assignedName.toLowerCase()) {
+                found = true;
+
+                const updatedTasks = [
+                    ...employee.tasks,
+                    {
+                        ...newTask,
+                        newTask: true,
+                        active: false,
+                        completed: false,
+                        failed: false
+                    }
+                ];
+
+                const updatedTaskCount = {
+                    ...employee.taskCount,
+                    newTask: (employee.taskCount?.newTask || 0) + 1,
+                };
+
+                return {
+                    ...employee,
+                    tasks: updatedTasks,
+                    taskCount: updatedTaskCount
+                };
+            }
+            return employee;
+        });
+
+        if (!found) return false;
+
+        setEmployees(updatedEmployees);
+        return true;
+    };
+
+    const updateTaskStatus = (employeeName, taskId, newStatus) => {
+        const updatedEmployees = employees.map(employee => {
+            if (employee.name.toLowerCase() === employeeName.toLowerCase()) {
+                const updatedTasks = employee.tasks.map(task => {
+                    if (task.id === taskId) {
+                        return {
+                            ...task,
+                            newTask: false,
+                            active: newStatus === 'accept',
+                            completed: newStatus === 'complete',
+                            failed: newStatus === 'fail',
+                        };
+                    }
+                    return task;
+                });
+
+                const taskCount = {
+                    newTask: 0,
+                    active: 0,
+                    completed: 0,
+                    failed: 0,
+                };
+
+                updatedTasks.forEach(task => {
+                    if (task.newTask) taskCount.newTask++;
+                    if (task.active) taskCount.active++;
+                    if (task.completed) taskCount.completed++;
+                    if (task.failed) taskCount.failed++;
+                });
+
+                return {
+                    ...employee,
+                    tasks: updatedTasks,
+                    taskCount,
+                };
+            }
+            return employee;
+        });
+
+        setEmployees(updatedEmployees);
+    };
+
     return (
-        <AuthContext.Provider value={userData}>
+        <AuthContext.Provider value={{ employees, assignTask, updateTaskStatus }}>
             {children}
         </AuthContext.Provider>
     );
 };
-
-export default AuthProvider;

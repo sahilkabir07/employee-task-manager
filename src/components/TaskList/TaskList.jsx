@@ -1,30 +1,28 @@
-import React from 'react'
-import AcceptTask from './AcceptTask'
-import NewTask from './NewTask'
-import CompleteTask from './CompleteTask'
-import FailedTask from './FailedTask'
+import React, { useContext } from "react";
+import TaskCard from "./TaskCard";
+import { AuthContext } from "../../context/AuthProvider";
 
-const TaskList = ({ data }) => {
+const TaskList = ({ employeeName }) => {
+    const { employees } = useContext(AuthContext);
+
+    const employee = employees.find(
+        (emp) => emp.name.toLowerCase() === employeeName.toLowerCase()
+    );
+    const tasks = employee?.tasks || [];
 
     return (
-        <div id='tasklist' className='h-[55%] overflow-x-auto w-full mt-10 flex items-center justify-start flex-nowrap py-5 gap-5'>
-            {data.tasks.map((elem, indx) => {
-                if (elem.active) {
-                    return <AcceptTask key={indx} data={elem} />
-                }
-                if (elem.newTask) {
-                    return <NewTask key={indx} data={elem} />
-                }
-                if (elem.completed) {
-                    return <CompleteTask key={indx} data={elem} />
-                }
-                if (elem.failed) {
-                    return <FailedTask key={indx} data={elem} />
-                }
-                return null;
-            })}
+        <div id="tasklist" className="mt-10 space-y-5">
+            {tasks.length === 0 ? (
+                <div className="flex items-center justify-center h-[60vh] text-white text-xl font-semibold">
+                    No tasks assigned yet.
+                </div>
+            ) : (
+                tasks.map((task) => (
+                    <TaskCard key={task.id} task={task} employeeName={employeeName} />
+                ))
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default TaskList;

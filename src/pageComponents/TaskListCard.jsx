@@ -1,28 +1,34 @@
-import React from 'react'
+import React from 'react';
 
-const TaskListCard = ({ data }) => {
-    if (!data || !data.taskCount) return <div>Loading...</div>;
+const TaskListCard = ({ employees = [] }) => {
+    let newTask = 0, active = 0, completed = 0, failed = 0;
+
+    employees.forEach(emp => {
+        emp?.tasks?.forEach(task => {
+            if (task.newTask) newTask++;
+            if (task.active) active++;
+            if (task.completed) completed++;
+            if (task.failed) failed++;
+        });
+    });
+
+    const cards = [
+        { label: 'New Task', count: newTask, bg: 'bg-red-500' },
+        { label: 'Completed Task', count: completed, bg: 'bg-blue-500' },
+        { label: 'Active Task', count: active, bg: 'bg-green-500' },
+        { label: 'Failed Task', count: failed, bg: 'bg-yellow-500' },
+    ];
 
     return (
-        <div className='flex mt-10 justify-between gap-5 screen'>
-            <div className='rounded-xl w-[45%] py-6 px-9 !bg-red-400'>
-                <h2 className='text-3xl font-semibold !bg-red-400 text-white'>{data.taskCount.newTask ?? 0}</h2>
-                <h3 className='text-xl font-medium !bg-red-400 text-white'>New Task</h3>
-            </div>
-            <div className='rounded-xl w-[45%] py-6 px-9 !bg-blue-400'>
-                <h2 className='text-3xl font-semibold !bg-blue-400 text-white'>{data.taskCount.completed ?? 0}</h2>
-                <h3 className='text-xl font-medium !bg-blue-400 text-white'>Completed Task</h3>
-            </div>
-            <div className='rounded-xl w-[45%] py-6 px-9 !bg-green-400'>
-                <h2 className='text-3xl font-semibold !bg-green-400 text-white'>{data.taskCount.active ?? 0}</h2>
-                <h3 className='text-xl font-medium !bg-green-400 text-white'>Active Task</h3>
-            </div>
-            <div className='rounded-xl w-[45%] py-6 px-9 !bg-yellow-400'>
-                <h2 className='text-3xl font-semibold !bg-yellow-400 text-white'>{data.taskCount.failed ?? 0}</h2>
-                <h3 className='text-xl font-medium !bg-yellow-400 text-white'>Failed Task</h3>
-            </div>
+        <div className='flex mt-10 justify-between flex-wrap gap-5'>
+            {cards.map(({ label, count, bg }) => (
+                <div key={label} className={`rounded-xl w-[45%] py-6 px-9 ${bg}`}>
+                    <h2 className='text-3xl font-semibold text-white'>{count}</h2>
+                    <h3 className='text-xl font-medium text-white'>{label}</h3>
+                </div>
+            ))}
         </div>
-    )
-}
+    );
+};
 
 export default TaskListCard;
