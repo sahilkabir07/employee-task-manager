@@ -10,8 +10,8 @@ const TaskCard = ({ task, employeeName }) => {
 
     return (
         <div className="bg-[#2C2C2C] text-white p-5 rounded-xl shadow-md">
-            <h2 className="text-xl font-semibold mb-2">{task.name || 'Untitled Task'}</h2>
-            <p className="text-sm mb-4">{task.description || 'No description provided'}</p>
+            <h2 className="text-xl font-semibold mb-2">{task.taskTitle || 'Untitled Task'}</h2> {/* Changed to 'taskTitle' */}
+            <p className="text-sm mb-4">{task.taskDescription || 'No description provided'}</p> {/* Changed to 'taskDescription' */}
 
             <div className="flex gap-3">
                 <button

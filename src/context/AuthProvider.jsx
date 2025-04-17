@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        setLocalStorage(employees);
+        setLocalStorage(employees); // Persist employees data to localStorage on change
     }, [employees]);
 
     const assignTask = (assignedName, newTask) => {
@@ -74,6 +74,7 @@ export const AuthProvider = ({ children }) => {
                     return task;
                 });
 
+                // Recalculate task counts
                 const taskCount = {
                     newTask: 0,
                     active: 0,
@@ -97,7 +98,7 @@ export const AuthProvider = ({ children }) => {
             return employee;
         });
 
-        setEmployees(updatedEmployees);
+        setEmployees(updatedEmployees); // Save updated employees data to context and localStorage
     };
 
     return (

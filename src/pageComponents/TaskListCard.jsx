@@ -1,22 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const TaskListCard = ({ employees = [] }) => {
-    let newTask = 0, active = 0, completed = 0, failed = 0;
-
-    employees.forEach(emp => {
-        emp?.tasks?.forEach(task => {
-            if (task.newTask) newTask++;
-            if (task.active) active++;
-            if (task.completed) completed++;
-            if (task.failed) failed++;
-        });
+const TaskListCard = ({ employee }) => {
+    const [taskCounts, setTaskCounts] = useState({
+        newTask: 0,
+        active: 0,
+        completed: 0,
+        failed: 0,
     });
 
+    useEffect(() => {
+        if (employee?.tasks) {
+            let newTask = 0, active = 0, completed = 0, failed = 0;
+
+            employee.tasks.forEach(task => {
+                if (task.newTask) newTask++;
+                if (task.active) active++;
+                if (task.completed) completed++;
+                if (task.failed) failed++;
+            });
+
+            setTaskCounts({ newTask, active, completed, failed });
+        }
+    }, [employee]);
+
     const cards = [
-        { label: 'New Task', count: newTask, bg: 'bg-red-500' },
-        { label: 'Completed Task', count: completed, bg: 'bg-blue-500' },
-        { label: 'Active Task', count: active, bg: 'bg-green-500' },
-        { label: 'Failed Task', count: failed, bg: 'bg-yellow-500' },
+        { label: 'New Task', count: taskCounts.newTask, bg: 'bg-red-500' },
+        { label: 'Completed Task', count: taskCounts.completed, bg: 'bg-blue-500' },
+        { label: 'Active Task', count: taskCounts.active, bg: 'bg-green-500' },
+        { label: 'Failed Task', count: taskCounts.failed, bg: 'bg-yellow-500' },
     ];
 
     return (
