@@ -6,11 +6,13 @@ A React-based employee task management system where users can log in as either a
 
 ## 🖼️ Demo Screenshots
 
-![Admin Dashboard](./screenshots/admin-dashboard.png)
+![Admin Dashboard](./screenshots/admin.png)
 
-![Employee Dashboard](./screenshots/employee-dashboard.png)
+![Employee Dashboard](./screenshots/employee.png)
 
----
+![Login Page](./screenshots/login.png)
+
+## ![Signup Page](./screenshots/signup.png)
 
 ## 📌 Features
 
