@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import TaskListCard from '../../pageComponents/TaskListCard';
 import TaskList from '../TaskList/TaskList';
 import { AuthContext } from "../../context/AuthProvider";
+import { useTheme } from '../../context/ThemeContext';
 
 const EmployeeDashboard = () => {
     const { loggedInUser, employees } = useContext(AuthContext);
+    const { theme } = useTheme();
 
     if (!loggedInUser) {
         return (
@@ -20,7 +22,6 @@ const EmployeeDashboard = () => {
         return <p className="text-white">No employee found.</p>;
     }
 
-    // Compute task counts live
     const taskCounts = {
         new: 0,
         active: 0,
@@ -36,7 +37,7 @@ const EmployeeDashboard = () => {
     });
 
     return (
-        <div className="p-10 bg-[#1C1C1C] h-full">
+        <div className={`p-10 min-h-screen ${theme === 'light' ? 'bg-transparent' : 'bg-transparent'}`}>
             <TaskListCard taskCounts={taskCounts} />
             <TaskList employeeName={employee.name} />
         </div>

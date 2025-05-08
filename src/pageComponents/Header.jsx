@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
+import ThemeToggle from './ThemeToggle';
+import { useTheme } from '../context/ThemeContext';
 
 const Header = ({ loggedInUserData, handleLogout }) => {
+    const { theme } = useTheme();
     const headerRef = useRef(null);
     const textRef = useRef(null);
     const buttonRef = useRef(null);
@@ -22,15 +25,16 @@ const Header = ({ loggedInUserData, handleLogout }) => {
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
+            const headerBackground = scrollPosition > 50 ? (theme === 'light' ? 'transparent' : 'transparent') : 'transparent';
             gsap.to(headerRef.current, {
-                backgroundColor: scrollPosition > 50 ? "#1f1f1f" : "#2D2D2D",
+                backgroundColor: headerBackground,
                 duration: 0.5,
             });
         };
 
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [theme]);
 
     useEffect(() => {
         const letters = textRef.current?.children;
@@ -38,10 +42,7 @@ const Header = ({ loggedInUserData, handleLogout }) => {
         if (letters) {
             gsap.fromTo(
                 letters,
-                {
-                    x: 100,
-                    opacity: 0,
-                },
+                { x: 100, opacity: 0 },
                 {
                     x: 0,
                     opacity: 1,
@@ -55,26 +56,31 @@ const Header = ({ loggedInUserData, handleLogout }) => {
         gsap.to(buttonRef.current, {
             opacity: loggedInUserData ? 1 : 0,
             x: loggedInUserData ? 0 : 50,
+            visibility: loggedInUserData ? 'visible' : 'hidden',
             duration: 0.5,
             ease: "power2.out",
         });
     }, [loggedInUserData]);
 
     const handleHover = (e) => {
+        const glowColor = theme === 'light' ? '#18fc' : '#00ff7f';
         gsap.to(e.target, {
             scale: 1.3,
-            textShadow: "0 0 15px #22c55e, 0 0 30px #22c55e, 0 0 45px #22c55e",
-            duration: 0.1,
-            ease: "power3.out",
+            color: glowColor,
+            textShadow: `0 0 10px ${glowColor}, 0 0 20px ${glowColor}`,
+            duration: 0.2,
+            ease: "power2.out",
         });
     };
 
     const handleLeave = (e) => {
+        const normalColor = theme === 'light' ? "white" : "white";
         gsap.to(e.target, {
             scale: 1,
+            color: normalColor,
             textShadow: "none",
-            duration: 0.1,
-            ease: "power3.inOut",
+            duration: 0.2,
+            ease: "power2.inOut",
         });
     };
 
@@ -95,35 +101,38 @@ const Header = ({ loggedInUserData, handleLogout }) => {
         ? `Welcome, ${loggedInUserData.name}`
         : "Welcome";
 
+    const textStyle = theme === 'light'
+        ? 'text-gradient-light'
+        : 'text-gradient-dark';
+
     return (
         <div
             ref={headerRef}
-            className="flex justify-between items-center bg-[#111] text-white p-6 rounded-xl"
+            className="relative flex items-center text-white p-6 rounded-xl transition-colors duration-300"
         >
-            {/* Main content wrapper */}
-            <div className="flex w-full justify-center items-center">
+            <div className="absolute left-1/2 transform -translate-x-1/2">
                 <h1
                     ref={textRef}
-                    className={`text-3xl font-bold flex flex-wrap ${loggedInUserData ? "text-left" : "text-center"
-                        }`}
+                    className={`text-3xl sm:text-2xl md:text-3xl font-bold flex flex-wrap justify-center ${textStyle}`}
                 >
                     {wrapText(displayText)}
                 </h1>
             </div>
 
-            <div className="flex items-center gap-4 ml-auto">
+            <div className="ml-auto flex items-center gap-4">
                 {loggedInUserData && (
                     <button
                         ref={buttonRef}
                         onClick={handleLogout}
-                        className="bg-red-500 hover:bg-red-600 px-6 py-3 rounded-lg text-lg"
+                        className="bg-sky-600 hover:bg-sky-300 px-6 py-3 rounded-lg text-lg text-white transition duration-300 ease-in-out"
                     >
                         Logout
                     </button>
                 )}
+                <ThemeToggle />
             </div>
         </div>
     );
-};
+}
 
 export default Header;

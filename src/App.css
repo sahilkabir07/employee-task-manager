@@ -1,10 +1,6 @@
 @import "tailwindcss";
-*{
-    color:#ffff;
-}
-body{
-    background-color: #1111;
-}
+
+
 #tasklist::-webkit-scrollbar{
 display: none;
 }
@@ -13,8 +9,96 @@ display: none;
 }
 
 body {
-    font-family: 'Manrope', sans-serif;
-    background-color:#111;
-        
+    font-family: 'Manrope', sans-serif;     
 }
 
+/* Light Theme Styles */
+body.light {
+    background-color: var(--background-light);
+    color: var(--text-light);
+}
+
+body.light input,
+body.light button {
+    border-color: var(--border-light);
+}
+
+body.light input:focus,
+body.light button:focus {
+    box-shadow: 0 0 10px var(--focus-light);
+}
+
+body.light button {
+    background-color: var(--button-light);
+    color: var(--text-light);
+}
+
+body.light button:hover {
+    background-color: var(--button-hover-light);
+}
+
+/* Dark Theme Styles */
+body.dark {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+}
+
+body.dark input,
+body.dark button {
+    border-color: var(--border-dark);
+}
+
+body.dark input:focus,
+body.dark button:focus {
+    box-shadow: 0 0 10px var(--focus-dark);
+}
+
+body.dark button {
+    background-color: var(--button-dark);
+    color: var(--text-dark);
+}
+
+body.dark button:hover {
+    background-color: var(--button-hover-dark);
+}
+
+:root {
+    --background-dark: #111111;
+    --border-dark: #10b981;
+    --text-dark: #ffffff;
+    --placeholder-dark: #b3b3b3;
+    /* Light Gray Placeholder */
+    --button-dark: #10b981;
+    /* Neon Green Button */
+    --button-hover-dark: #000000;
+    /* Black Button on Hover */
+    --focus-dark: #10b981;
+    /* Neon Green Focus Shadow */
+}
+
+/* Light Theme (Sky) Colors */
+:root {
+    --background-light: #ffffff;
+    /* White Background */
+    --border-light: #2196f3;
+    /* Sky Blue Border */
+    --text-light: #212121;
+    /* Dark Gray Text */
+    --placeholder-light: #2196f3;
+    /* Sky Blue Placeholder */
+    --button-light: #2196f3;
+    /* Sky Blue Button */
+    --button-hover-light: #1e88e5;
+    /* Darker Sky Blue Button on Hover */
+    --focus-light: rgba(135, 206, 250, 0.8);
+    /* Sky Blue Focus Shadow */
+}
+
+html,
+body,
+#root {
+    min-height: 100vh;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}

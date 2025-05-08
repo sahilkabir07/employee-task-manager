@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useRef } from "react";
 import TaskCard from "./TaskCard";
 import { AuthContext } from "../../context/AuthProvider";
 import gsap from "gsap";
+import { useTheme } from '../../context/ThemeContext';
 
 const TaskList = ({ employeeName }) => {
     const { employees } = useContext(AuthContext);
     const taskContainerRef = useRef(null);
+    const { theme } = useTheme();
 
-    // Get the specific employee data based on the passed employeeName prop
     const employee = employees.find(
         (emp) => emp.name.toLowerCase() === employeeName.toLowerCase()
     );
@@ -23,7 +24,6 @@ const TaskList = ({ employeeName }) => {
     const tasks = employee?.tasks || [];
 
     useEffect(() => {
-        // Animate task cards when tasks are available
         if (taskContainerRef.current && tasks.length > 0) {
             gsap.fromTo(
                 taskContainerRef.current.children,
@@ -41,10 +41,9 @@ const TaskList = ({ employeeName }) => {
     }, [tasks]);
 
     return (
-        <div className="mt-10">
-            {/* Display a message if no tasks are assigned */}
+        <div className={`mt-10 ${theme === 'light' ? 'bg-transparent text-black' : 'bg-transparent text-white'} min-h-screen`}>
             {tasks.length === 0 ? (
-                <div className="flex items-center justify-center h-[60vh] text-white text-xl font-semibold">
+                <div className="flex items-center justify-center h-[60vh] text-xl font-semibold">
                     No tasks assigned yet.
                 </div>
             ) : (

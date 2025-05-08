@@ -2,11 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { useAuth } from '../../context/AuthProvider'; // Import useAuth hook
+import { useTheme } from '../../context/ThemeContext'; // Assuming you have a Theme context
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { login, loggedInUser } = useAuth(); // ✅ corrected variable name
+    const { theme } = useTheme(); // Assuming useTheme hook gives us the current theme
     const navigate = useNavigate();
 
     const containerRef = useRef(null);
@@ -15,7 +17,6 @@ const Login = () => {
     // Use this effect to handle navigation after login state update
     useEffect(() => {
         if (loggedInUser) {
-            // Avoid flicker by wrapping the redirect in a timeout
             const timeout = setTimeout(() => {
                 if (loggedInUser.role === "admin") {
                     navigate("/admin-dashboard");
@@ -43,14 +44,16 @@ const Login = () => {
 
         if (buttonRef.current) {
             gsap.to(buttonRef.current, {
-                boxShadow: "0 0 10px #10b981, 0 0 20px #10b981",
+                boxShadow: theme === 'light'
+                    ? "0 0 15px rgba(135,206,250,0.8), 0 0 25px rgba(135,206,250,0.6)"
+                    : "0 0 10px #10b981, 0 0 20px #10b981",
                 repeat: -1,
                 yoyo: true,
-                duration: 1.2,
+                duration: 1.5,
                 ease: "sine.inOut",
             });
         }
-    }, []);
+    }, [theme]);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -65,11 +68,11 @@ const Login = () => {
     };
 
     return (
-        <div className='bg-[#111] overflow-x-hidden'>
+        <div className={`overflow-x-hidden ${theme === 'dark' ? 'bg-transparent' : 'bg-transparent'}`}>
             <div className="flex h-screen w-screen items-center justify-center">
                 <div
                     ref={containerRef}
-                    className="border-2 border-emerald-600 p-14 rounded-2xl shadow-[0_0_20px_#10b981] transition-all"
+                    className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} p-14 rounded-2xl shadow-[0_0_20px_${theme === 'light' ? 'rgba(135,206,250,0.5)' : '#10b981'}] transition-all`}
                 >
                     <form
                         className="flex flex-col items-center justify-center gap-4"
@@ -79,7 +82,7 @@ const Login = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className="border-2 border-emerald-600 text-xl py-3 px-6 rounded-full placeholder:text-gray-400 outline-none bg-transparent text-white transition focus:shadow-[0_0_10px_#10b981]"
+                            className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
                             type="email"
                             placeholder='Enter Your Email'
                         />
@@ -87,21 +90,21 @@ const Login = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className="border-2 border-emerald-600 text-xl py-3 px-6 rounded-full placeholder:text-gray-400 outline-none bg-transparent text-white transition focus:shadow-[0_0_10px_#10b981]"
+                            className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
                             type="password"
                             placeholder='Enter Your Password'
                         />
                         <button
                             ref={buttonRef}
-                            className="bg-emerald-600 text-xl py-3 px-6 rounded-full text-white hover:bg-black transition-all"
+                            className={`bg-${theme === 'light' ? 'sky' : 'emerald'}-600 text-xl py-3 px-6 rounded-full text-white hover:bg-${theme === 'light' ? 'sky' : 'emerald'}-700 transition-all`}
                         >
                             Login
                         </button>
-                        <p className="text-white mt-4">
+                        <p className={`text-${theme === 'light' ? 'sky' : 'white'}-700 mt-4`}>
                             Don’t have an account?{" "}
                             <span
                                 onClick={() => navigate('/signup')}
-                                className="text-emerald-400 cursor-pointer underline hover:text-emerald-300 transition"
+                                className={`text-${theme === 'light' ? 'sky' : 'emerald'}-600 cursor-pointer underline hover:text-${theme === 'light' ? 'sky' : 'emerald'}-900 transition`}
                             >
                                 Sign up
                             </span>

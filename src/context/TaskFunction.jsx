@@ -1,4 +1,3 @@
-// TaskFunctions.js
 import { getLocalStorage, setLocalStorage } from './localStorage';
 
 export const assignTaskToEmployee = (employeeEmail, newTask) => {
@@ -8,7 +7,7 @@ export const assignTaskToEmployee = (employeeEmail, newTask) => {
 
     if (employeeIndex !== -1) {
         dataEmployees[employeeIndex].tasks.push(newTask);
-        setLocalStorage(dataEmployees, []);  // Save updated data back to localStorage
+        setLocalStorage(dataEmployees, []);
     } else {
         console.log('Employee not found!');
     }

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import { AuthContext } from '../context/AuthProvider';
 import gsap from 'gsap';
+import { useTheme } from '../context/ThemeContext';
 
 const CreateTask = () => {
     const [taskTitle, setTaskTitle] = useState("");
@@ -12,6 +13,7 @@ const CreateTask = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { assignTask, employees } = useContext(AuthContext);
+    const { theme } = useTheme();
     const formRef = useRef(null);
     const buttonRef = useRef(null);
 
@@ -77,10 +79,15 @@ const CreateTask = () => {
         }
     };
 
+    const bgColor = theme === 'light' ? 'bg-transparent' : 'bg-gradient-to-br from-transparent to-[#1c1c1c] text-white border-gray-700 shadow-lg';
+    const textColor = theme === 'light' ? 'text-sky-800' : 'text-white';
+    const inputBgColor = theme === 'light' ? 'bg-sky-500' : 'bg-[#2a2a2a]';
+    const inputTextColor = theme === 'light' ? 'text-black' : 'text-white';
+
     return (
         <div
             ref={formRef}
-            className="p-6 bg-[#1a1a1a] mt-10 rounded-xl text-white shadow-[0_0_25px_#10b98155] transition-all"
+            className={`${bgColor} ${textColor} p-6 mt-10 rounded-xl shadow-[0_0_25px_#10b98155] transition-all`}
         >
             <form onSubmit={submitHandler} className="flex flex-wrap justify-between w-full gap-6">
                 <div className="w-full md:w-1/2">
@@ -90,7 +97,7 @@ const CreateTask = () => {
                         value={taskTitle}
                         onChange={(e) => setTaskTitle(e.target.value)}
                         placeholder="Make a UI design"
-                        className="text-sm py-2 px-4 w-full rounded outline-none border border-gray-600 mb-4 bg-[#2a2a2a] text-white focus:shadow-[0_0_8px_#10b981]"
+                        className={`text-sm py-2 px-4 w-full rounded outline-none border border-gray-600 mb-4 ${inputBgColor} ${inputTextColor} focus:shadow-[0_0_8px #10b981]`}
                     />
 
                     <label className="block mb-2 text-sm">Date</label>
@@ -98,14 +105,14 @@ const CreateTask = () => {
                         type="date"
                         value={taskDate}
                         onChange={(e) => setTaskDate(e.target.value)}
-                        className="text-sm py-2 px-4 w-full rounded outline-none border border-gray-600 mb-4 bg-[#2a2a2a] text-white focus:shadow-[0_0_8px_#10b981]"
+                        className={`text-sm py-2 px-4 w-full rounded outline-none border border-gray-600 mb-4 ${inputBgColor} ${inputTextColor} focus:shadow-[0_0_8px #10b981]`}
                     />
 
                     <label className="block mb-2 text-sm">Assign to</label>
                     <select
                         value={assignTo}
                         onChange={(e) => setAssignTo(e.target.value)}
-                        className="text-sm py-2 px-4 w-full rounded outline-none border border-gray-600 mb-4 bg-[#2a2a2a] text-white focus:shadow-[0_0_8px_#10b981]"
+                        className={`text-sm py-2 px-4 w-full rounded outline-none border border-gray-600 mb-4 ${inputBgColor} ${inputTextColor} focus:shadow-[0_0_8px #10b981]`}
                     >
                         <option value="">Select employee</option>
                         {employees?.length > 0 ? (
@@ -127,7 +134,7 @@ const CreateTask = () => {
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         placeholder="Design, Dev, etc."
-                        className="text-sm py-2 px-4 w-full rounded outline-none border border-gray-600 mb-4 bg-[#2a2a2a] text-white focus:shadow-[0_0_8px_#10b981]"
+                        className={`text-sm py-2 px-4 w-full rounded outline-none border border-gray-600 mb-4 ${inputBgColor} ${inputTextColor} focus:shadow-[0_0_8px #10b981]`}
                     />
                 </div>
 
@@ -137,7 +144,7 @@ const CreateTask = () => {
                         value={taskDescription}
                         onChange={(e) => setTaskDescription(e.target.value)}
                         placeholder="Task details..."
-                        className="text-sm py-2 px-4 w-full h-28 rounded outline-none border border-gray-600 mb-4 bg-[#2a2a2a] text-white focus:shadow-[0_0_8px_#10b981]"
+                        className={`text-sm py-2 px-4 w-full h-28 rounded outline-none border border-gray-600 mb-4 ${inputBgColor} ${inputTextColor} focus:shadow-[0_0_8px #10b981]`}
                     ></textarea>
 
                     {errorMessage && (
@@ -148,11 +155,12 @@ const CreateTask = () => {
                         type="submit"
                         disabled={isSubmitting}
                         ref={buttonRef}
-                        className={`bg-emerald-500 hover:bg-emerald-600 text-white h-10 w-full rounded mt-2 transition-all ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                            }`}
+                        className={`transition-all ${theme === 'dark' ? 'bg-[#00FF00] hover:bg-[#33FF33]' : 'bg-sky-600 hover:bg-[#A2DFF7]'} text-sky-800 h-10 w-full rounded mt-2 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                     >
                         {isSubmitting ? "Creating..." : "Create Task"}
                     </button>
+
+
                 </div>
             </form>
         </div>
