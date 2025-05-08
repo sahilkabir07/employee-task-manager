@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
-import { useAuth } from '../../context/AuthProvider'; // Import useAuth hook
-import { useTheme } from '../../context/ThemeContext'; // Assuming you have a Theme context
+import { useAuth } from '../../context/AuthProvider';
+import { useTheme } from '../../context/ThemeContext';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { login, loggedInUser } = useAuth(); // ✅ corrected variable name
-    const { theme } = useTheme(); // Assuming useTheme hook gives us the current theme
+    const { login, loggedInUser } = useAuth();
+    const { theme } = useTheme();
     const navigate = useNavigate();
 
     const containerRef = useRef(null);
     const buttonRef = useRef(null);
 
-    // Use this effect to handle navigation after login state update
     useEffect(() => {
         if (loggedInUser) {
             const timeout = setTimeout(() => {
@@ -23,9 +22,9 @@ const Login = () => {
                 } else {
                     navigate("/employee-dashboard");
                 }
-            }, 150);  // 150ms delay for state to fully update
+            }, 150);
 
-            return () => clearTimeout(timeout); // Cleanup timeout on unmount
+            return () => clearTimeout(timeout);
         }
     }, [loggedInUser, navigate]);
 
@@ -57,7 +56,7 @@ const Login = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        const success = login(email, password); // ✅ fixed: passing separately
+        const success = login(email, password);
 
         if (success) {
             setEmail("");
@@ -72,7 +71,7 @@ const Login = () => {
             <div className="flex h-screen w-screen items-center justify-center">
                 <div
                     ref={containerRef}
-                    className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} p-14 rounded-2xl shadow-[0_0_20px_${theme === 'light' ? 'rgba(135,206,250,0.5)' : '#10b981'}] transition-all`}
+                    className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} px-6 py-10 sm:px-10 sm:py-12 md:px-14 md:py-14 rounded-2xl shadow-[0_0_20px_${theme === 'light' ? 'rgba(135,206,250,0.5)' : '#10b981'}] transition-all max-w-md w-full mx-4`}
                 >
                     <form
                         className="flex flex-col items-center justify-center gap-4"
@@ -82,7 +81,7 @@ const Login = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
+                            className={`w-full border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
                             type="email"
                             placeholder='Enter Your Email'
                         />
@@ -90,17 +89,17 @@ const Login = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
+                            className={`w-full border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
                             type="password"
                             placeholder='Enter Your Password'
                         />
                         <button
                             ref={buttonRef}
-                            className={`bg-${theme === 'light' ? 'sky' : 'emerald'}-600 text-xl py-3 px-6 rounded-full text-white hover:bg-${theme === 'light' ? 'sky' : 'emerald'}-700 transition-all`}
+                            className={`w-full bg-${theme === 'light' ? 'sky' : 'emerald'}-600 text-xl py-3 px-6 rounded-full text-white hover:bg-${theme === 'light' ? 'sky' : 'emerald'}-700 transition-all`}
                         >
                             Login
                         </button>
-                        <p className={`text-${theme === 'light' ? 'sky' : 'white'}-700 mt-4`}>
+                        <p className={`text-${theme === 'light' ? 'sky' : 'white'}-700 mt-4 text-center`}>
                             Don’t have an account?{" "}
                             <span
                                 onClick={() => navigate('/signup')}
