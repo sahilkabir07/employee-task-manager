@@ -48,7 +48,7 @@ A React-based employee task management system where users can log in as either a
 - Built with **React**, styled using **Tailwind CSS**.
 - Smooth animations with **GSAP**.
 - Responsive design for mobile and desktop.
-
+- Light / Dark theme options avialable
 ---
 
 ## 🛠️ Tech Stack
