@@ -86,8 +86,8 @@ const Signup = () => {
     };
 
     const borderColor = theme === 'light' ? 'border-sky-400' : 'border-emerald-600';
-    const placeholderColor = theme === 'light' ? 'placeholder:text-sky-700' : 'placeholder:text-emerald-700';
-    const textColor = theme === 'light' ? 'text-sky-800' : 'text-emerald-700';
+    const placeholderColor = theme === 'light' ? 'placeholder:text-sky-700' : 'placeholder:text-white';
+    const textColor = theme === 'light' ? 'text-sky-800' : 'text-white';
     const focusShadow = theme === 'light'
         ? 'focus:shadow-[0_0_10px_rgba(135,206,250,0.8)]'
         : 'focus:shadow-[0_0_10px_#10b981]';
@@ -134,14 +134,32 @@ const Signup = () => {
                         type="password"
                         placeholder="Confirm Your Password"
                     />
-                    <select
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                        className={`border-2 ${borderColor} ${textColor} text-lg sm:text-xl py-3 px-6 rounded-full outline-none bg-transparent cursor-pointer w-full`}
-                    >
-                        <option value="employee">Employee</option>
-                        <option value="admin">Admin</option>
-                    </select>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                                type="radio"
+                                name="role"
+                                value="employee"
+                                checked={role === "employee"}
+                                onChange={(e) => setRole(e.target.value)}
+                                className="accent-blue-500 w-5 h-5"
+                            />
+                            <span className="text-lg sm:text-xl">Employee</span>
+                        </label>
+
+                        <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                                type="radio"
+                                name="role"
+                                value="admin"
+                                checked={role === "admin"}
+                                onChange={(e) => setRole(e.target.value)}
+                                className="accent-blue-500 w-5 h-5"
+                            />
+                            <span className="text-lg sm:text-xl">Admin</span>
+                        </label>
+                    </div>
+
                     <button
                         ref={buttonRef}
                         className={`${buttonColor} text-white text-lg sm:text-xl py-3 px-6 rounded-full transition-all w-full`}

@@ -110,7 +110,8 @@ const Header = ({ loggedInUserData, handleLogout }) => {
             ref={headerRef}
             className="relative flex flex-col sm:flex-row sm:items-center text-white p-6 rounded-xl transition-colors duration-300"
         >
-            <div className="w-full sm:w-auto flex justify-center sm:justify-center mb-4 sm:mb-0">
+            {/* Centered Content */}
+            <div className="flex justify-center items-center w-full mb-4 sm:mb-0">
                 <h1
                     ref={textRef}
                     className={`text-2xl sm:text-2xl md:text-3xl font-bold flex flex-wrap justify-center ${textStyle}`}
@@ -119,7 +120,8 @@ const Header = ({ loggedInUserData, handleLogout }) => {
                 </h1>
             </div>
 
-            <div className="w-full sm:w-auto flex justify-center sm:ml-auto gap-4">
+            {/* Right-aligned Buttons */}
+            <div className="flex justify-center sm:ml-auto gap-4 w-full sm:w-auto">
                 {loggedInUserData && (
                     <button
                         ref={buttonRef}
@@ -133,6 +135,6 @@ const Header = ({ loggedInUserData, handleLogout }) => {
             </div>
         </div>
     );
-}
+};
 
 export default Header;

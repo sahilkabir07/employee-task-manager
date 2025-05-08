@@ -67,8 +67,8 @@ const Login = () => {
     };
 
     return (
-        <div className={`overflow-x-hidden ${theme === 'dark' ? 'bg-transparent' : 'bg-transparent'}`}>
-            <div className="grid h-screen w-screen place-items-center">
+        <div className={`overflow-x-hidden ${theme === 'dark' ? 'bg-transparent' : 'bg-transparent'} `}>
+            <div className="flex justify-center items-start min-h-screen pt-12 w-screen">
                 <div
                     ref={containerRef}
                     className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} px-6 py-6 sm:px-10 sm:py-8 md:px-14 md:py-10 rounded-2xl shadow-[0_0_20px_${theme === 'light' ? 'rgba(135,206,250,0.5)' : '#10b981'}] transition-all max-w-md w-full mx-4`}
@@ -81,7 +81,7 @@ const Login = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
-                            className={`w-full border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
+                            className={`w-full border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'white'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-white'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
                             type="email"
                             placeholder='Enter Your Email'
                         />
@@ -89,7 +89,7 @@ const Login = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
-                            className={`w-full border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
+                            className={`w-full border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'white'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-white'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
                             type="password"
                             placeholder='Enter Your Password'
                         />
