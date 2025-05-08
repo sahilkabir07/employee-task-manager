@@ -68,10 +68,10 @@ const Login = () => {
 
     return (
         <div className={`overflow-x-hidden ${theme === 'dark' ? 'bg-transparent' : 'bg-transparent'}`}>
-            <div className="flex h-screen w-screen items-center justify-center">
+            <div className="grid h-screen w-screen place-items-center">
                 <div
                     ref={containerRef}
-                    className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} px-6 py-10 sm:px-10 sm:py-12 md:px-14 md:py-14 rounded-2xl shadow-[0_0_20px_${theme === 'light' ? 'rgba(135,206,250,0.5)' : '#10b981'}] transition-all max-w-md w-full mx-4`}
+                    className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} px-6 py-6 sm:px-10 sm:py-8 md:px-14 md:py-10 rounded-2xl shadow-[0_0_20px_${theme === 'light' ? 'rgba(135,206,250,0.5)' : '#10b981'}] transition-all max-w-md w-full mx-4`}
                 >
                     <form
                         className="flex flex-col items-center justify-center gap-4"

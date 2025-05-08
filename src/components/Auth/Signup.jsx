@@ -85,44 +85,74 @@ const Signup = () => {
         setConfirmPassword("");
     };
 
+    const borderColor = theme === 'light' ? 'border-sky-400' : 'border-emerald-600';
+    const placeholderColor = theme === 'light' ? 'placeholder:text-sky-700' : 'placeholder:text-emerald-700';
+    const textColor = theme === 'light' ? 'text-sky-800' : 'text-emerald-700';
+    const focusShadow = theme === 'light'
+        ? 'focus:shadow-[0_0_10px_rgba(135,206,250,0.8)]'
+        : 'focus:shadow-[0_0_10px_#10b981]';
+    const buttonColor = theme === 'light' ? 'bg-sky-600 hover:bg-sky-700' : 'bg-emerald-600 hover:bg-emerald-700';
+    const linkColor = theme === 'light' ? 'text-sky-600 hover:text-sky-900' : 'text-emerald-600 hover:text-emerald-900';
+    const textColorPara = theme === 'light' ? 'text-sky-700' : 'text-white';
+
     return (
-        <div className={`overflow-x-hidden min-h-screen flex items-center justify-center ${theme === 'dark' ? 'bg-transparent' : 'bg-transparent'}`}>
+        <div className={`min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 ${theme === 'dark' ? 'bg-transparent' : 'bg-transparent'}`}>
             <div
                 ref={formRef}
-                className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} p-14 rounded-2xl shadow-[0_0_20px_${theme === 'light' ? 'rgba(135,206,250,0.5)' : '#10b981'}] transition-all w-full max-w-md`}
+                className={`border-2 ${borderColor} p-6 sm:p-10 md:p-14 rounded-2xl w-full max-w-md shadow-[0_0_20px_${theme === 'light' ? 'rgba(135,206,250,0.5)' : '#10b981'}] transition-all`}
             >
                 <form className="flex flex-col items-center justify-center gap-4" onSubmit={submitHandler}>
-                    <input value={name} onChange={(e) => setName(e.target.value)} required
-                        className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
-                        type="text" placeholder="Enter Your Name" />
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} required
-                        className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
-                        type="email" placeholder="Enter Your Email" />
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} required
-                        className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
-                        type="password" placeholder="Enter Your Password" />
-                    <input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required
-                        className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full placeholder:text-${theme === 'light' ? 'sky-700' : 'emerald-700'} outline-none bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} transition focus:shadow-[0_0_10px_${theme === 'light' ? 'rgba(135,206,250,0.8)' : '#10b981'}]`}
-                        type="password" placeholder="Confirm Your Password" />
+                    <input
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                        className={`border-2 ${borderColor} ${placeholderColor} ${textColor} text-lg sm:text-xl py-3 px-6 rounded-full outline-none bg-transparent ${focusShadow} transition w-full`}
+                        type="text"
+                        placeholder="Enter Your Name"
+                    />
+                    <input
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className={`border-2 ${borderColor} ${placeholderColor} ${textColor} text-lg sm:text-xl py-3 px-6 rounded-full outline-none bg-transparent ${focusShadow} transition w-full`}
+                        type="email"
+                        placeholder="Enter Your Email"
+                    />
+                    <input
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className={`border-2 ${borderColor} ${placeholderColor} ${textColor} text-lg sm:text-xl py-3 px-6 rounded-full outline-none bg-transparent ${focusShadow} transition w-full`}
+                        type="password"
+                        placeholder="Enter Your Password"
+                    />
+                    <input
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                        className={`border-2 ${borderColor} ${placeholderColor} ${textColor} text-lg sm:text-xl py-3 px-6 rounded-full outline-none bg-transparent ${focusShadow} transition w-full`}
+                        type="password"
+                        placeholder="Confirm Your Password"
+                    />
                     <select
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
-                        className={`border-2 ${theme === 'light' ? 'border-sky-400' : 'border-emerald-600'} text-xl py-3 px-6 rounded-full bg-transparent text-${theme === 'light' ? 'sky-800' : 'emerald-700'} outline-none cursor-pointer`}
+                        className={`border-2 ${borderColor} ${textColor} text-lg sm:text-xl py-3 px-6 rounded-full outline-none bg-transparent cursor-pointer w-full`}
                     >
                         <option value="employee">Employee</option>
                         <option value="admin">Admin</option>
                     </select>
                     <button
                         ref={buttonRef}
-                        className={`bg-${theme === 'light' ? 'sky' : 'emerald'}-600 text-xl py-3 px-6 rounded-full text-white hover:bg-${theme === 'light' ? 'sky' : 'emerald'}-700 transition-all`}
+                        className={`${buttonColor} text-white text-lg sm:text-xl py-3 px-6 rounded-full transition-all w-full`}
                     >
                         Signup
                     </button>
-                    <p className={`text-${theme === 'light' ? 'sky' : 'white'}-700 mt-4`}>
+                    <p className={`${textColorPara} mt-4`}>
                         Already have an account?{" "}
                         <span
                             onClick={() => navigate('/login')}
-                            className={`text-${theme === 'light' ? 'sky' : 'emerald'}-600 cursor-pointer underline hover:text-${theme === 'light' ? 'sky' : 'emerald'}-900 transition`}
+                            className={`${linkColor} cursor-pointer underline transition`}
                         >
                             Login
                         </span>

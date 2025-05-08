@@ -74,7 +74,7 @@ const Header = ({ loggedInUserData, handleLogout }) => {
     };
 
     const handleLeave = (e) => {
-        const normalColor = theme === 'light' ? "white" : "white";
+        const normalColor = "white";
         gsap.to(e.target, {
             scale: 1,
             color: normalColor,
@@ -108,23 +108,23 @@ const Header = ({ loggedInUserData, handleLogout }) => {
     return (
         <div
             ref={headerRef}
-            className="relative flex items-center text-white p-6 rounded-xl transition-colors duration-300"
+            className="relative flex flex-col sm:flex-row sm:items-center text-white p-6 rounded-xl transition-colors duration-300"
         >
-            <div className="absolute left-1/2 transform -translate-x-1/2">
+            <div className="w-full sm:w-auto flex justify-center sm:justify-center mb-4 sm:mb-0">
                 <h1
                     ref={textRef}
-                    className={`text-3xl sm:text-2xl md:text-3xl font-bold flex flex-wrap justify-center ${textStyle}`}
+                    className={`text-2xl sm:text-2xl md:text-3xl font-bold flex flex-wrap justify-center ${textStyle}`}
                 >
                     {wrapText(displayText)}
                 </h1>
             </div>
 
-            <div className="ml-auto flex items-center gap-4">
+            <div className="w-full sm:w-auto flex justify-center sm:ml-auto gap-4">
                 {loggedInUserData && (
                     <button
                         ref={buttonRef}
                         onClick={handleLogout}
-                        className="bg-sky-600 hover:bg-sky-300 px-6 py-3 rounded-lg text-lg text-white transition duration-300 ease-in-out"
+                        className="bg-sky-600 hover:bg-sky-300 px-4 py-2 rounded-lg text-sm sm:text-base text-white transition duration-300 ease-in-out"
                     >
                         Logout
                     </button>
