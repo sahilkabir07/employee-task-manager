@@ -12,7 +12,7 @@ A React-based employee task management system where users can log in as either a
 
 ![Login Page](./screenshots/login.png)
 
-## ![Signup Page](./screenshots/signup.png)
+![Signup Page](./screenshots/signup.png)
 
 ## 📌 Features
 
