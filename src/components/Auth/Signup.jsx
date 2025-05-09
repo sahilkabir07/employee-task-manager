@@ -96,7 +96,7 @@ const Signup = () => {
     const textColorPara = theme === 'light' ? 'text-sky-700' : 'text-white';
 
     return (
-        <div className={`min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 ${theme === 'dark' ? 'bg-transparent' : 'bg-transparent'}`}>
+        <div className={`min-h-screen flex justify-center items-start sm:items-center mt-12 sm:mt-0 px-4 sm:px-6 md:px-8 ${theme === 'dark' ? 'bg-transparent' : 'bg-transparent'}`}>
             <div
                 ref={formRef}
                 className={`border-2 ${borderColor} p-6 sm:p-10 md:p-14 rounded-2xl w-full max-w-md shadow-[0_0_20px_${theme === 'light' ? 'rgba(135,206,250,0.5)' : '#10b981'}] transition-all`}
