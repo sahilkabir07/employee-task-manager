@@ -1,7 +1,7 @@
 # 🧑‍💼 Employee Task Manager (React)
 
 A React-based employee task management system where users can log in as either an **Admin** or an **Employee**. Admins can assign tasks to specific employees, and employees can view and update their task statuses from a clean, animated dashboard. All task statuses and counts are synced live using localStorage, ensuring both admins and employees have an up-to-date view of progress.
-
+[LIVE](https://employee-task-manager-three.vercel.app/)
 ---
 
 ## 🖼️ Demo Screenshots
